@@ -2,16 +2,16 @@
 
 ## users
 
-| Column             | Type        | Option     |
-| -------------------|-------------|------------|
-| nickname           | string      | null:false |
-| email              | string      | null:false |
-| encrypted_password | string      | null:false |
-| first_name         | string      | null:false |
-| family_name        | string      | null:false |
-| read_first         | string      | null:false |
-| read_family        | string      | null:false |
-| birth_id           | date        | null:false |
+| Column             | Type        | Option                   |
+| -------------------|-------------|--------------------------|
+| nickname           | string      | null:false               |
+| email              | string      | null:false, unique: true |
+| encrypted_password | string      | null:false               |
+| first_name         | string      | null:false               |
+| family_name        | string      | null:false               |
+| read_first         | string      | null:false               |
+| read_family        | string      | null:false               |
+| birth_id           | date        | null:false               |
 
 ### Association
 
@@ -58,7 +58,7 @@
 | city           | string     | null:false                   |
 | address        | string     | null:false                   |
 | building_name  | string     |                              |
-| phone_number   | integer    | null:false                   |
+| phone_number   | string     | null:false                   |
 | purchase       | references | null:false,foreign_key: true |
 
 ### Association
