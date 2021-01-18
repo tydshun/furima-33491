@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2021-01-16T06:19:58.784Z" agent="5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="gbcPVdkzLm-5Q16NgWSf" type="embed">
+<mxfile host="65bd71144e" modified="2021-01-16T08:41:12.301Z" agent="5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="wpZS2sqIq67Otp3WbArI" type="embed">
     <diagram id="y7oEp9IW8L8wuzuZ9hH4" name="ページ1">
-        <mxGraphModel dx="657" dy="572" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="203" dy="487" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -25,7 +25,7 @@
                 <mxCell id="62" value="post_cord (〒)&#10;city (市)&#10;address (番地)&#10;building_name&#10;phone_number&#10;&#10;[アクティブハッシュ]&#10;prefecturs_id (県)&#10;&#10;[アソシエーション]&#10;belongs_to :purchase" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="61">
                     <mxGeometry y="30" width="130" height="170" as="geometry"/>
                 </mxCell>
-                <mxCell id="63" value="purchase_info(購入情報)" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
+                <mxCell id="63" value="purchase_info(購入記録)" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
                     <mxGeometry x="210" y="300" width="160" height="150" as="geometry"/>
                 </mxCell>
                 <mxCell id="64" value="[外部キー]&#10;user_id&#10;item_id&#10;address_id&#10;&#10;[アソシエーション]&#10;has_one :shipping_address&#10;belongs_to : user" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="63">
