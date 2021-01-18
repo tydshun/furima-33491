@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
 
   describe 'ユーザー新規登録/ユーザー情報' do
     context '新規登録できるとき' do
-      it 'nicknameとemail、passwordとpassword_confirmationが存在すれば登録できる' do
+      it 'nicknameとemail、passwordとpassword_confirmationとfirst_nameとfamily_nameとread_firstとread_familyとbirthが存在すれば登録できる' do
         @user.valid?
         expect(@user).to be_valid
       end
@@ -43,8 +43,7 @@ RSpec.describe User, type: :model do
         @user.password = ''
         @user.password_confirmation = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is invalid', 'Password is too short (minimum is 6 characters)',
-                                                      "Password can't be blank")
+        expect(@user.errors.full_messages).to include("Password can't be blank")
       end
 
       it 'パスワードは、6文字以上での入力でないと登録できない' do
@@ -54,20 +53,36 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
 
-      it '半角英数字を含めないと登録できない' do
+      it 'パスワードは半角英語のみでは登録できない' do
+       @user.password = "abcdefg"
+       @user.password_confirmation = "abcdefg"
+       @user.valid?
+       binding.pry
+       expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+      
+      it 'password：全角英数混合は登録できない' do
+        @user.password = "Ａbcdefg123"
+        @user.password_confirmation = "abcdefg"
+        @user.valid?
+        binding.pry
+        expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+      
+      it '半角英数字のみでは登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '123456'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
-
+      
       it 'パスワードは、確認用を含めて2回入力しないと登録できない' do
         @user.password = 'abc123'
         @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-
+      
       it 'パスワードは、確認用を含めて2回入力しないと登録できない' do
         @user.password = 'abc123'
         @user.password_confirmation = 'abc456'
@@ -76,44 +91,56 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
+  
   describe 'ユーザー新規登録/本人情報の確認' do
-    context '登録できるとき' do
-      it 'first_nameとfamily_nameとread_firstとread_familyとbirthが存在すれば新規登録できる' do
-        @user.valid?
-        expect(@user).to be_valid
-      end
-    end
-
     context '新規登録できないとき' do
       it 'ユーザー本名は、名字がないと登録できない' do
         @user.first_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
-
+      
       it 'ユーザー本名は、名前がないと登録出来ない' do
         @user.family_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Family name can't be blank")
       end
-
-      it 'ユーザー本名は、全角（漢字・ひらがな・カタカナ）での入力でないと登録できない' do
-      end
-
-      it 'ユーザー本名のフリガナは、名字がないと登録できない' do
-        @user.read_family = ''
+      
+      it 'ユーザーの名字は、全角（漢字・ひらがな・カタカナ）での入力でないと登録できない' do
+        @user.family_name = "YAMADA"
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read family can't be blank", 'Read family is invalid')
+        expect(@user.errors.full_messages).to include("Family name is invalid")
       end
-
-      it 'ユーザー本名のフリガナは、名前がないと登録できない' do
+      
+      it 'ユーザーの名前は、全角（漢字・ひらがな・カタカナ）での入力でないと登録できない' do
+        @user.first_name = "TAROU"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid")
+      end
+      
+      it 'フリガナは全角カタカナでないと登録できない' do
+        @user.read_family = 'ｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read family is invalid")
+      end
+      
+      it 'ユーザーの名字（フリガナ）は全角カタカナ以外は登録できない' do
+        @user.read_family = "ｱ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Read family is invalid")
+      end
+      
+      it 'ユーザー名前のフリガナは、空では登録できない' do
         @user.read_first = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Read first can't be blank", 'Read first is invalid')
+        expect(@user.errors.full_messages).to include("Read first can't be blank",)
       end
 
-      it 'ユーザー本名のフリガナは、全角（カタカナ）での入力でないと登録できない' do
+      it 'ユーザー名字のフリガナは、空では登録できない' do
+        @user.read_first = ''
+        @user.valid?
+        binding.pry
+        expect(@user.errors.full_messages).to include("Read first can't be blank",)
       end
 
       it '生年月日がないと入力出来ない' do

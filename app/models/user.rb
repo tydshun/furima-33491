@@ -1,13 +1,19 @@
 class User < ApplicationRecord
-  validates :nickname, presence: true,  length: { maximum: 6 }
-  validates :first_name, presence: true, format: { with: /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/ }
-  validates :family_name, presence: true, format: { with: /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/ }
-  validates :read_first, presence: true, format: { with: /\A[ァ-ヶー－]+\z/}
-  validates :read_family, presence: true, format: { with: /\A[ァ-ヶー－]+\z/}
-  validates :birth, presence: true
-  VALID_PASSWORD_REGEX =/\A(?=.*?[a-z])[a-z\d]+\z/
-  validates :password, format: { with: VALID_PASSWORD_REGEX },length: { minimum: 6 }
+  with_options presence: true do
+    validates :nickname
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ } 
+    validates :family_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ } 
+    validates :birth
+  end
 
+  with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/ } do
+    validates :read_first
+    validates :read_family
+  end
+
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
+  validates :password, format: { with: VALID_PASSWORD_REGEX }, length: { minimum: 6 }
+  
   has_many :items
   has_many :purchases
 
