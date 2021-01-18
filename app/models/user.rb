@@ -14,7 +14,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
   validates :password, format: { with: VALID_PASSWORD_REGEX }, length: { minimum: 6 }
   
-  has_many :items
+  chas_many :items
   has_many :purchases
 
   devise :database_authenticatable, :registerable,
