@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
-  validates :name, :explanation, presence: true
+  validates :name, :explanation, :image, presence: true
   validates :category_id, :condition_id, :postage_type_id, :prefecture_id, :preparation_day_id, numericality: { other_than: 1 }
   
   
