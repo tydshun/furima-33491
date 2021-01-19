@@ -1,9 +1,19 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-
-  validates :name, :explanation, :image, presence: true
-  validates :category_id, :condition_id, :postage_type_id, :prefecture_id, :preparation_day_id, numericality: { other_than: 1 }
-  
+  with_options presence: true do
+    validates :name
+    validates :explanation
+    validates :image
+    validates :price, numericality: { only_integer: true }
+    with_options numericality: { other_than: 1,only_integer: true } do
+      validates :category_id
+      validates :condition_id
+      validates :postage_type_id
+      validates :prefecture_id
+      validates :preparation_day_id
+    end
+  end
+  validates_inclusion_of :price, in: 300..9999999
   
   has_one_attached       :image
   belongs_to_active_hash :category
