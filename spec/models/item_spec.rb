@@ -52,10 +52,61 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Preparation day can't be blank")
       end
+      it 'categoryが１だとitemは保存できない' do
+        
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+      it 'conditionが１だとitemは保存できない' do
+        @item.condition_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
+      end
+      it 'postage_typeが１だとitemは保存できない' do
+        @item.postage_type_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Postage type must be other than 1")
+      end
+      it 'prefectureが１だとitemは保存できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+      it 'preparation_dayが１だととitemは保存できない' do
+        @item.preparation_day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Preparation day must be other than 1")
+      end
       it 'priceがないとitemは保存できない' do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
+      end
+      it 'priceが299円以下では出品できない' do
+        @item.price = 298
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it 'priceが10_000_000円以上では出品できない' do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it 'priceが半角英数字混合では出品できない' do
+        @item.price = '200a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceが半角英字のみでは出品できない' do
+        @item.price = 'test'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceが全角文字では出品できない' do
+        @item.price = '２０００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
       it 'userが紐付いてないとitemは保存できない' do
         @item.user = nil
@@ -65,5 +116,3 @@ RSpec.describe Item, type: :model do
     end
   end
 end
-
-# bundle exec rspec spec/models/item_spec.rb
