@@ -23,9 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user.id != @item.user.id
-      redirect_to action: :edit
-    end
+    redirect_to action: :edit if current_user.id != @item.user.id
   end
 
   def update
@@ -36,6 +34,18 @@ class ItemsController < ApplicationController
     end
   end
 
+<<<<<<< Updated upstream
+=======
+  def destroy
+    if current_user.id == @item.user.id
+      @item.destroy
+      redirect_to action: :index
+    else
+      redirect_to action: :show
+    end
+  end
+
+>>>>>>> Stashed changes
   private
 
   def find_params
