@@ -7,15 +7,15 @@
     </h2>
     <div class='item-img-content'>
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <% unless @item %>
-        <div class='sold-out'>
-          <span>Sold Out!!</span>
-        </div>
-      <% end %> 
+      <%# <% unless @item %> 
+        <%# <div class='sold-out'> %>
+          <%# <span>Sold Out!!</span> %>
+        <%# </div> %>
+      <%# <% end %>  
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        <%= "¥#{@item.price}" %> 
+         ¥ <%= @item.price %>
       </span>
       <span class="item-postage">
         <%= @item.postage_type.name %>
