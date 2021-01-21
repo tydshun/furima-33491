@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
       @item.destroy
       redirect_to action: :index
     else
-      redirect_to action: :index
+      redirect_to action: :show
     end
   end
 
