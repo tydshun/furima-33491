@@ -10,7 +10,7 @@ app/assets/stylesheets/items/new.css %>
     <%= form_with model: @item, local: true do |f| %>
 
 
-    <%render 'shared/error_messages', model: f.object %>
+    <%= render 'shared/error_messages', model: f.object %>
 
     <div class="img-upload">
       <div class="weight-bold-text">
