@@ -24,8 +24,8 @@ class ItemsController < ApplicationController
 
   def edit
     if current_user.id != @item.user.id
-      render action: :edit
-    end 
+      redirect_to root_path
+    end
   end
 
   def update
